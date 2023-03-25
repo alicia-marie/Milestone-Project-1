@@ -5,88 +5,89 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkers!</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <table>
-        <tr> 
-            <td class="noPiece">1</td> 
-            <td>2</td> 
-            <td class="noPiece">3</td> 
-            <td>4</td> 
-            <td class="noPiece">5</td> 
-            <td>6</td> 
-            <td class="noPiece">7</td> 
-            <td>8</td> 
+        <tr>
+            <td class="noPiece"></td>
+            <td><p class="red-piece" id="0"></p></td>
+            <td class="noPiece"></td>
+            <td><p class="red-piece" id="1"></p></td>
+            <td class="noPiece"></td>
+            <td><p class="red-piece" id="2"></p></td>
+            <td class="noPiece"></td>
+            <td><p class="red-piece" id="3"></p></td>
         </tr>
-        <tr> 
-            <td></td> 
-            <td class="noPiece"></td> 
-            <td></td> 
-            <td class="noPiece"></td> 
-            <td></td> 
-            <td class="noPiece"></td> 
-            <td></td> 
-            <td class="noPiece"></td> 
+        <tr>
+            <td><p class="red-piece" id="4"></p></td>
+            <td class="noPiece"></td>
+            <td><p class="red-piece" id="5"></p></td>
+            <td class="noPiece"></td>
+            <td><p class="red-piece" id="6"></p></td>
+            <td class="noPiece"></td>
+            <td><p class="red-piece" id="7"></p></td>
+            <td class="noPiece"></td>
         </tr>
-        <tr> 
-            <td class="noPiece">1</td> 
-            <td>2</td> 
-            <td class="noPiece">3</td> 
-            <td>4</td> 
-            <td class="noPiece">5</td> 
-            <td>6</td> 
-            <td class="noPiece">7</td> 
-            <td>8</td> 
+        <tr>
+            <td class="noPiece"></td>
+            <td><p class="red-piece" id="8"></p></td>
+            <td class="noPiece"></td>
+            <td><p class="red-piece" id="9"></p></td>
+            <td class="noPiece"></td>
+            <td><p class="red-piece" id="10"></p></td>
+            <td class="noPiece"></td>
+            <td><p class="red-piece" id="11"></p></td>
         </tr>
-        <tr> 
-            <td></td> 
-            <td class="noPiece"></td> 
-            <td></td> 
-            <td class="noPiece"></td> 
-            <td></td> 
-            <td class="noPiece"></td> 
-            <td></td> 
-            <td class="noPiece"></td> 
+        <tr>
+            <td></td>
+            <td class="noPiece"></td>
+            <td></td>
+            <td class="noPiece"></td>
+            <td></td>
+            <td class="noPiece"></td>
+            <td></td>
+            <td class="noPiece"></td>
         </tr>
-        <tr> 
-            <td class="noPiece">1</td> 
-            <td>2</td> 
-            <td class="noPiece">3</td> 
-            <td>4</td> 
-            <td class="noPiece">5</td> 
-            <td>6</td> 
-            <td class="noPiece">7</td> 
-            <td>8</td> 
+        <tr>
+            <td class="noPiece"></td>
+            <td></td>
+            <td class="noPiece"></td>
+            <td></td>
+            <td class="noPiece"></td>
+            <td></td>
+            <td class="noPiece"></td>
+            <td></td>
         </tr>
-        <tr> 
-            <td></td> 
-            <td class="noPiece"></td> 
-            <td></td> 
-            <td class="noPiece"></td> 
-            <td></td> 
-            <td class="noPiece"></td> 
-            <td></td> 
-            <td class="noPiece"></td> 
+        <tr>
+            <td><p class="black-piece" id="12"></p></td>
+            <td class="noPiece"></td>
+            <td><p class="black-piece" id="13"></p></td>
+            <td class="noPiece"></td>
+            <td><p class="black-piece" id="14"></p></td>
+            <td class="noPiece"></td>
+            <td><p class="black-piece" id="15"></p></td>
+            <td class="noPiece"></td>
         </tr>
-        <tr> 
-            <td class="noPiece">1</td> 
-            <td>2</td> 
-            <td class="noPiece">3</td> 
-            <td>4</td> 
-            <td class="noPiece">5</td> 
-            <td>6</td> 
-            <td class="noPiece">7</td> 
-            <td>8</td> 
+        <tr>
+            <td class="noPiece"></td>
+            <td><p class="black-piece" id="16"></p></td>
+            <td class="noPiece"></td>
+            <td><p class="black-piece" id="17"></p></td>
+            <td class="noPiece"></td>
+            <td><p class="black-piece" id="18"></p></td>
+            <td class="noPiece"></td>
+            <td><p class="black-piece" id="19"></p></td>
         </tr>
-        <tr> 
-            <td></td> 
-            <td class="noPiece"></td> 
-            <td></td> 
-            <td class="noPiece"></td> 
-            <td></td> 
-            <td class="noPiece"></td> 
-            <td></td> 
-            <td class="noPiece"></td> 
+        <tr>
+            <td><p class="black-piece" id="20"></p></td>
+            <td class="noPiece"></td>
+            <td><p class="black-piece" id="21"></p></td>
+            <td class="noPiece">
+            <td><p class="black-piece" id="22"></p></td>
+            <td class="noPiece"></td>
+            <td><p class="black-piece" id="23"></p></td>
+            <td class="noPiece"></td>
         </tr>
     </table>
 </body>
