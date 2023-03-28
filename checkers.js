@@ -36,20 +36,6 @@ let selectedPiece = {
     minusEighteenthSpace: false,
 }
 
-
-function givePiecesEventListeners() {
-    for (let i = 0; i < redsPieces.length; i++) {
-        redsPieces[i].addEventListener("click", getAvailableSpaces);
-        redsPieces[i].addEventListener("click", removeOldEventListeners);
-    }
-
-    for (let i = 0; i < blacksPieces.length; i++) {
-        blacksPieces[i].addEventListener("click", getAvailableSpaces);
-        blacksPieces[i].addEventListener("click", removeOldEventListeners);
-    }
-}
-
-
 function givePiecesEventListeners() {
     if (turn) {
         for (let i = 0; i < redPiecesLength; i++) {
@@ -111,5 +97,23 @@ let findPiece = function (pieceId) {
     return board.indexOf(parsed);
 }
 
+function checkPieceConditions() {
+    if (selectedPiece.isKing) {
+        givePieceBorder();
+    } else {
+        if (turn) {
+            selectedPiece.minusSeventhPace = false;
+            selectedPiece.minusNinthSpae = false;
+            selectedPiece.minusFourteenthSpace = false;
+            selectedPiece.minusEighteenthSpace = false;
+        } else {
+            selectedPiece.seventhSpace = false;
+            selectedPiece. ninthSpace = false;
+            selectedPiece.fourteenthSpace = false;
+            selectedPiece.eighteenthSpace = false;
+        }
+        givePieceBorder();
+    }
+}
 givePiecesEventListeners()
 
