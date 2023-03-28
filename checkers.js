@@ -22,3 +22,94 @@ let redScore = 12;
 let blackSCore = 12;
 let playerPieces;
 
+let selectedPiece = {
+    pieceId: -1,
+    indexOfBoardPiece: -1,
+    isKing: false,
+    seventhSpace: false,
+    ninthSpace: false,
+    fourteenthSpace: false,
+    eighteenthSpace: false,
+    minusSeventhPace: false,
+    minusNinthSpae: false,
+    minusFourteenthSpace: false,
+    minusEighteenthSpace: false,
+}
+
+
+function givePiecesEventListeners() {
+    for (let i = 0; i < redsPieces.length; i++) {
+        redsPieces[i].addEventListener("click", getAvailableSpaces);
+        redsPieces[i].addEventListener("click", removeOldEventListeners);
+    }
+
+    for (let i = 0; i < blacksPieces.length; i++) {
+        blacksPieces[i].addEventListener("click", getAvailableSpaces);
+        blacksPieces[i].addEventListener("click", removeOldEventListeners);
+    }
+}
+
+
+function givePiecesEventListeners() {
+    if (turn) {
+        for (let i = 0; i < redPiecesLength; i++) {
+            redsPieces[i].addEventListener("click", getPlayerPieces);
+        }
+    } else {
+        for (let i = 0; i < blackPiecesLength; i++) {
+            blacksPieces[i].addEventListener("click", getPlayerPieces);
+        }
+    }
+}
+
+function getPlayerPieces() {
+    if (turn) {
+        playerPieces = redsPieces;
+    } else {
+        playerPieces = blacksPieces;
+    }
+    removerCellonclick();
+    resetBorders();
+}
+
+function removerCellonclick() {
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].removeAttribute("onclick");
+    }
+}
+
+function resetBorders() {
+    for (let i = 0; i < playerPieces.length; i++) {
+        playerPieces[i].style.border = "1px sold white";
+    }
+    resetSelctedPieceProperties();
+    getSelectedPiece();
+}
+
+function resetSelctedPieceProperties() {
+    selectedPiece.pieceId = -1;
+    selectedPiece.pieceId = -1;
+    selectedPiece.isKing = false;
+    selectedPiece.seventhSpace = false;
+    selectedPiece.ninthSpace = false;
+    selectedPiece.fourteenthSpace = false; 
+    selectedPiece.eighteenthSpace = false;
+    selectedPiece.minusSeventhPace = false;
+    selectedPiece.minusNinthSpae = false;
+    selectedPiece.minusFourteenthSpace = false;
+    selectedPiece.minusEighteenthSpace = false;
+}
+
+function getSelectedPiece() {
+    selectedPiece.pieceId = parseInt(event.target.id);
+    selectedPiece.indexOfBoardPiece = findPiece(selectedPiece.pieceId);
+    isPieceKing();
+}
+
+let findPiece = function (pieceId) {
+    let parsed = parseInt(pieceId);
+    return board.indexOf(parsed);
+}
+
+givePiecesEventListeners()
+
