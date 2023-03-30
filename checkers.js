@@ -97,6 +97,47 @@ let findPiece = function (pieceId) {
     return board.indexOf(parsed);
 }
 
+function isPieceKing() {
+    if (document.getElementById(selectedPiece.pieceId).classList.contains("king")) {
+        selectedPiece.isKing = true;
+    } else {
+        selectedPiece.is = false;
+    }
+    getAvailableSpace();
+}
+
+function getAvailableSpace() {
+    if (board[selectedPiece.indexOfBoardPiece + 9] === null &&
+        cells[selectedPiece.indexOfBoardPiece + 9].classList.contains("noPiece") !== true) {
+        selectedPiece.ninthSpace = true;
+    } 
+    if (board[selectedPiece.indexOfBoardPiece - 7] === null &&
+        cells[selectedPiece.indexOfBoardPiece - 7].classList.contains("noPiece") !== true) {
+        selectedPiece.minusSeventhPace = true;
+    }    
+    if (board[selectedPiece.indexOfBoardPiece - 9] === null &&
+        cells[selectedPiece.indexOfBoardPiece - 9].classList.contains("noPiece") !== true) {
+        selectedPiece.minusNinthSpae = true;
+    }
+    checkAvailableJumpSpaces();
+}
+
+function checkAvailableJumpSpaces(){
+    if(turn) {
+        if (board[selectedPiece.indexOfBoardPiece + 14] === null
+        && cells[selectedPiece.indexOfBoardPiece + 14].classList.contains("noPiece") !== true
+        && board[selectedPiece.indexOfBoardPiece + 7] >= 12) {
+            selectedPiece.fourteenthSpace = true;
+        } else {
+            is (board[selectedPiece.indexOfBoardPiece + 14] === null
+            && cells[selectedPiece.indexOfBoardPiece + 14].classList.contains("noPiece") !== true
+            && board[selectedPiece.indexOfBoardPiece + 7] < 12 && board[selectedPiece.indexOfBoardPiece + 7] !== null); {
+                selectedPiece.fourteenthSpace = true;
+            }
+        }
+    }
+}
+
 function checkPieceConditions() {
     if (selectedPiece.isKing) {
         givePieceBorder();
@@ -115,5 +156,15 @@ function checkPieceConditions() {
         givePieceBorder();
     }
 }
+
+function givePieceBorder() {
+    if (selectedPiece.seventhSpace || selectedPiece.ninthSpace || selectedPiece.fourteenthSpace || selectedPiece.eighteenthSpace
+        || selectedPiece.minusSeventhPace || selectedPiece.minusNinthSpae || selectedPiece.minusFourteenthSpace || selectedPiece.minusEighteenthSpace) {
+        document.getElementById(selectedPiece.pieceId).style.border = "3px solid green";
+    } else {
+        return;
+    }
+}
+
 givePiecesEventListeners()
 
