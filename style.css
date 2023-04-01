@@ -1,6 +1,6 @@
 * {
     margin: auto;
-    background-color: white;
+    background-color: rgb(250, 225, 225);
 }
 
 main {
@@ -13,6 +13,7 @@ main {
 
 /*title*/
 h1{
+    color: rgb(48, 60, 41);
     font-size: 100px;
 }
 
@@ -29,7 +30,8 @@ td {
 }
 
 table{
-    border: 5px solid black;
+    border: 5px solid black;    
+    box-shadow: 10px 10px 8px 10px rgb(201, 128, 140);
 }
 
 /*checker pieces*/
@@ -40,6 +42,7 @@ table{
     background-color: black;
     border: 1px solid white;
     border-radius: 50px;
+    box-shadow: 10px 10px 8px rgb(108, 52, 11);
 }
 
 .red-piece {
@@ -49,6 +52,7 @@ table{
     background-color: darkred;
     border: 1px solid white;
     border-radius: 50px;
+    box-shadow: 10px 10px 8px rgb(108, 52, 11);
 }
 
 /*winning checker pieces (king)*/
@@ -83,11 +87,10 @@ div {
 
 .black-turn-text {
     text-align: center;
+    color: lightgray;
     font-family: "open sans";
     font-size: 55px;
-    color: lightgrey;
 }
-
 
 #divider {
     font-size: 90px;
