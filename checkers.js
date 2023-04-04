@@ -1,3 +1,4 @@
+///CITATION///
 //initializes a game board for checkers with a 8x8 grid
 const board = [
     null, 0, null, 1, null, 2, null, 3,
@@ -10,8 +11,9 @@ const board = [
     20, null, 21, null, 22, null, 23, null
 ]
 
-//values for variables that will be used to keep track of the game state.
-// True represents red's turn, false represents black's turn
+///CITATION///
+//values for variables that will be used to keep track of the game
+//true represents red's turn, false represents black's turn
 let turn = true; 
 let redScore = 12;
 let blackScore = 12;
@@ -19,8 +21,8 @@ let playerPieces;
 let redsPieces = document.querySelectorAll("p");
 let blacksPieces = document.querySelectorAll("span")
 const cells = document.querySelectorAll("td");
-const redTurnText = document.querySelectorAll(".red-turn-text");
-const blackTurntext = document.querySelectorAll(".black-turn-text");
+const redTurnText = document.querySelectorAll(".red-text");
+const blackTurntext = document.querySelectorAll(".black-text");
 const divider = document.querySelector("#divider")
 
 //keep track of the selected piece on the board
@@ -37,12 +39,6 @@ let selectedPiece = {
     minusFourteenthSpace: false,
     minusEighteenthSpace: false
 }
-
-//receives a pieceId and returns its index in the board array
-let findPiece = function (pieceId) {
-    let parsed = parseInt(pieceId);
-    return board.indexOf(parsed);
-};
 
 //adds a click event listener to each of the current player's pieces
 function givePiecesEventListeners() {
@@ -75,6 +71,7 @@ function resetBorders() {
     getSelectedPiece();
 }
 
+///CITATION///
 //resets all the properties of the selected piece
 function resetSelectedPieceProperties() {
     selectedPiece.pieceId = -1;
@@ -110,8 +107,7 @@ function getAvailableSpaces() {
     const ninthSpace = selectedPiece.indexOfBoardPiece + 9;
     const minusSeventhSpace = selectedPiece.indexOfBoardPiece - 7;
     const minusNinthSpace = selectedPiece.indexOfBoardPiece - 9;
-
-    //check if the space is empty and does not have a "noPiece" class, then mark as available
+    //check if the space is empty and does not have a "noPiece" class then mark as available
     if (board[seventhSpace] === null && !cells[seventhSpace].classList.contains("noPiece")) {
         selectedPiece.seventhSpace = true;
     }
@@ -132,7 +128,7 @@ function checkAvailableJumpSpaces() {
     const isTurn = turn;
     const selectedBoardIndex = selectedPiece.indexOfBoardPiece;
     if (isTurn) {
-      // Check for available jump spaces when it's the player's turn.
+      //check for available jump spaces when it's the player's turn.
       const canJumpToFourteenthSpace = (
         board[selectedBoardIndex + 14] === null &&
         !cells[selectedBoardIndex + 14].classList.contains("noPiece") &&
@@ -153,13 +149,13 @@ function checkAvailableJumpSpaces() {
         !cells[selectedBoardIndex - 18].classList.contains("noPiece") &&
         board[selectedBoardIndex - 9] >= 12
       );
-      // Update the selected piece's jump spaces status based on the above checks
+      //update the selected piece's jump spaces status based on the above checks
       selectedPiece.fourteenthSpace = canJumpToFourteenthSpace;
       selectedPiece.eighteenthSpace = canJumpToEighteenthSpace;
       selectedPiece.minusFourteenthSpace = canJumpToMinusFourteenthSpace;
       selectedPiece.minusEighteenthSpace = canJumpToMinusEighteenthSpace;
     } else {
-      // Check for available jump spaces when it's the opponent's turn.
+      //check for available jump spaces when it's the opponent's turn
       const canJumpToFourteenthSpace = (
         board[selectedBoardIndex + 14] === null &&
         !cells[selectedBoardIndex + 14].classList.contains("noPiece") &&
@@ -184,7 +180,7 @@ function checkAvailableJumpSpaces() {
         board[selectedBoardIndex - 9] < 12 &&
         board[selectedBoardIndex - 9] !== null
       );
-      // Update the selected piece's jump spaces status based on the above checks
+      //update the selected piece's jump spaces status based on the above
       selectedPiece.fourteenthSpace = canJumpToFourteenthSpace;
       selectedPiece.eighteenthSpace = canJumpToEighteenthSpace;
       selectedPiece.minusFourteenthSpace = canJumpToMinusFourteenthSpace;
@@ -193,7 +189,7 @@ function checkAvailableJumpSpaces() {
     checkPieceConditions();
 }
 
-// This function checks the conditions of the selected piece and decides whether to apply borders to the spaces it can move to.
+//function checks the conditions of the selected piece and decides whether to apply borders to the spaces it can move to
 function checkPieceConditions() {
     if (selectedPiece.isKing) {
         givePieceBorder();
@@ -203,7 +199,7 @@ function checkPieceConditions() {
             selectedPiece.minusNinthSpace = false;
             selectedPiece.minusFourteenthSpace = false;
             selectedPiece.minusEighteenthSpace = false;
-        // Otherwise, give borders only to the spaces that the selected piece can move to based on its current position and turn.
+        //otherwise, give borders only to the spaces that the selected piece can move to based on its current position and turn
         } else {
             selectedPiece.seventhSpace = false;
             selectedPiece.ninthSpace = false;
@@ -238,55 +234,45 @@ function giveCellsClick() {
   }
 
 function giveCellsClick() {
-    if (selectedPiece.seventhSpace) {
-        cells[selectedPiece.indexOfBoardPiece + 7].setAttribute("onclick", "makeMove(7)");
-    }
-    if (selectedPiece.ninthSpace) {
-        cells[selectedPiece.indexOfBoardPiece + 9].setAttribute("onclick", "makeMove(9)");
-    }
-    if (selectedPiece.fourteenthSpace) {
-        cells[selectedPiece.indexOfBoardPiece + 14].setAttribute("onclick", "makeMove(14)");
-    }
-    if (selectedPiece.eighteenthSpace) {
-        cells[selectedPiece.indexOfBoardPiece + 18].setAttribute("onclick", "makeMove(18)");
-    }
-    if (selectedPiece.minusSeventhSpace) {
-        cells[selectedPiece.indexOfBoardPiece - 7].setAttribute("onclick", "makeMove(-7)");
-    }
-    if (selectedPiece.minusNinthSpace) {
-        cells[selectedPiece.indexOfBoardPiece - 9].setAttribute("onclick", "makeMove(-9)");
-    }
-    if (selectedPiece.minusFourteenthSpace) {
-        cells[selectedPiece.indexOfBoardPiece - 14].setAttribute("onclick", "makeMove(-14)");
-    }
-    if (selectedPiece.minusEighteenthSpace) {
-        cells[selectedPiece.indexOfBoardPiece - 18].setAttribute("onclick", "makeMove(-18)");
+    //an array of moves that the selected piece can make
+    const moves = [
+      { space: selectedPiece.seventhSpace, index: selectedPiece.indexOfBoardPiece + 7, value: 7 },
+      { space: selectedPiece.ninthSpace, index: selectedPiece.indexOfBoardPiece + 9, value: 9 },
+      { space: selectedPiece.fourteenthSpace, index: selectedPiece.indexOfBoardPiece + 14, value: 14 },
+      { space: selectedPiece.eighteenthSpace, index: selectedPiece.indexOfBoardPiece + 18, value: 18 },
+      { space: selectedPiece.minusSeventhSpace, index: selectedPiece.indexOfBoardPiece - 7, value: -7 },
+      { space: selectedPiece.minusNinthSpace, index: selectedPiece.indexOfBoardPiece - 9, value: -9 },
+      { space: selectedPiece.minusFourteenthSpace, index: selectedPiece.indexOfBoardPiece - 14, value: -14 },
+      { space: selectedPiece.minusEighteenthSpace, index: selectedPiece.indexOfBoardPiece - 18, value: -18 }
+    ];
+    for (const move of moves) {
+      if (move.space) {
+        cells[move.index].setAttribute("onclick", `makeMove(${move.value})`);
+      }
     }
 }
 
-//unction handles the piece movement and updates the board accordingly
+//function handles the piece movement and updates the board accordingly
 function makeMove(number) {
     const selectedPieceElement = document.getElementById(selectedPiece.pieceId);
     selectedPieceElement.remove();
     cells[selectedPiece.indexOfBoardPiece].innerHTML = "";
-  
     const targetCell = cells[selectedPiece.indexOfBoardPiece + number];
     const pieceColor = turn ? "red" : "black";
     const pieceClass = selectedPiece.isKing ? `${pieceColor}-piece king` : `${pieceColor}-piece`;
     const pieceElement = turn ? document.createElement("p") : document.createElement("span");
     pieceElement.className = pieceClass;
     pieceElement.id = selectedPiece.pieceId;
-  
     targetCell.appendChild(pieceElement);
-  
     if (turn) {
       redsPieces = document.querySelectorAll("p");
     } else {
       blacksPieces = document.querySelectorAll("span");
     }
-  }
-function makeMove(number) {
+}
 
+///CITATION///
+function makeMove(number) {
     //remove the selected piece from its current position
     document.getElementById(selectedPiece.pieceId).remove();
     cells[selectedPiece.indexOfBoardPiece].innerHTML = "";
@@ -307,8 +293,7 @@ function makeMove(number) {
             blacksPieces = document.querySelectorAll("span");
         }
     }
-
-    //If the piece made a jump move, then the piece that was jumped over is removed from the board and its data is updated
+    //if the piece made a jump move, then the piece that was jumped over is removed from the board and its data is updated
     let indexOfPiece = selectedPiece.indexOfBoardPiece
     if (number === 14 || number === -14 || number === 18 || number === -18) {
         changeData(indexOfPiece, indexOfPiece + number, indexOfPiece + number / 2);
@@ -322,7 +307,6 @@ function changeData(indexOfBoardPiece, modifiedIndex, removePiece) {
     //clear the original board position and move the selected piece to the new position
     board[indexOfBoardPiece] = null;
     board[modifiedIndex] = parseInt(selectedPiece.pieceId);
-
     //check if a piece has reached the opposite end of the board and promote it to a king
     if (turn && selectedPiece.pieceId < 12 && modifiedIndex >= 57) {
         document.getElementById(selectedPiece.pieceId).classList.add("king");
@@ -330,7 +314,6 @@ function changeData(indexOfBoardPiece, modifiedIndex, removePiece) {
     if (turn === false && selectedPiece.pieceId >= 12 && modifiedIndex <= 7) {
         document.getElementById(selectedPiece.pieceId).classList.add("king");
     }
-
     //remove any captured piece from the board and update the scores
     if (removePiece) {
         board[removePiece] = null;
@@ -347,6 +330,7 @@ function changeData(indexOfBoardPiece, modifiedIndex, removePiece) {
     removeCellonclick();
     removeEventListeners();
 }
+
 
 //remove event listeners for the current player's pieces
 function removeEventListeners() {
@@ -387,22 +371,20 @@ function checkForWin() {
 }
 
 function changePlayer() {
-    const redTurnText = document.querySelectorAll('.red-turn-text');
-    const blackTurnText = document.querySelectorAll('.black-turn-text');
-    
-    turn = !turn; // toggle the turn variable
-    
+    const redText = document.querySelectorAll('.red-text');
+    const blackText = document.querySelectorAll('.black-text');
+    turn = !turn; //toggle the turn variable
     if (turn) {
-      // switch to black player
-      for (let i = 0; i < blackTurnText.length; i++) {
-        blackTurnText[i].style.color = "lightGrey";
+      //switch to black player
+      for (let i = 0; i < blackText.length; i++) {
+        blackText[i].style.color = "#718171";
         redTurnText[i].style.color = "black";
       }
     } else {
-      // switch to red player
-      for (let i = 0; i < redTurnText.length; i++) {
-        redTurnText[i].style.color = "lightGrey";
-        blackTurnText[i].style.color = "black";
+      //switch to red player
+      for (let i = 0; i < redText.length; i++) {
+        redText[i].style.color = "#718171";
+        blackText[i].style.color = "black";
       }
     }
     givePiecesEventListeners(); 
