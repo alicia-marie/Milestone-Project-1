@@ -1,6 +1,6 @@
-///CITATION///
+ /* * Title: (checkers-game-js) * Author:(Niement, M) * Date: (2022) * Code version:(v1.0.0.0) * Availability:(https://github.com/niemet0502/checkers-game-js) * */
 //initializes a game board for checkers with a 8x8 grid
-const board = [
+const checkerBoard = [
     null, 0, null, 1, null, 2, null, 3,
     4, null, 5, null, 6, null, 7, null,
     null, 8, null, 9, null, 10, null, 11,
@@ -11,25 +11,24 @@ const board = [
     20, null, 21, null, 22, null, 23, null
 ]
 
-///CITATION///
 //values for variables that will be used to keep track of the game
 //true represents red's turn, false represents black's turn
 let turn = true; 
-let redScore = 12;
-let blackScore = 12;
+let redPlay = 12;
+let blackPlay = 12;
 let playerPieces;
-let redsPieces = document.querySelectorAll("p");
-let blacksPieces = document.querySelectorAll("span")
+let redPiece = document.querySelectorAll("p");
+let blackPiece = document.querySelectorAll("span")
 const cells = document.querySelectorAll("td");
 const redTurnText = document.querySelectorAll(".red-text");
 const blackTurntext = document.querySelectorAll(".black-text");
-const divider = document.querySelector("#divider")
+const divider = document.querySelector(".divider")
 
 //keep track of the selected piece on the board
 let selectedPiece = {
     pieceId: -1,
     indexOfBoardPiece: -1,
-    isKing: false,
+    king: false,
     seventhSpace: false,
     ninthSpace: false,
     fourteenthSpace: false,
@@ -42,7 +41,7 @@ let selectedPiece = {
 
 //adds a click event listener to each of the current player's pieces
 function givePiecesEventListeners() {
-    const pieces = turn ? redsPieces : blacksPieces;
+    const pieces = turn ? redPiece : blackPiece;
     for (const piece of pieces) {
       piece.addEventListener("click", getPlayerPieces);
     }
@@ -50,7 +49,7 @@ function givePiecesEventListeners() {
 
 //function is called when a player clicks on one of their pieces
 function getPlayerPieces() {
-    playerPieces = turn ? redsPieces : blacksPieces;
+    playerPieces = turn ? redPiece : blackPiece;
     removeCellonclick();
     resetBorders();
 }
@@ -71,12 +70,11 @@ function resetBorders() {
     getSelectedPiece();
 }
 
-///CITATION///
 //resets all the properties of the selected piece
 function resetSelectedPieceProperties() {
     selectedPiece.pieceId = -1;
     selectedPiece.pieceId = -1;
-    selectedPiece.isKing = false;
+    selectedPiece.king = false;
     selectedPiece.seventhSpace = false;
     selectedPiece.ninthSpace = false;
     selectedPiece.fourteenthSpace = false;
@@ -90,13 +88,13 @@ function resetSelectedPieceProperties() {
 //function gets the selected piece and sets its index on the board
 function getSelectedPiece() {
     selectedPiece.pieceId = parseInt(event.target.id);
-    selectedPiece.indexOfBoardPiece = board.indexOf(selectedPiece.pieceId);
+    selectedPiece.indexOfBoardPiece = checkerBoard.indexOf(selectedPiece.pieceId);
     isPieceKing();
 }
 
 //function checks if the selected piece is a king and gets its available spaces
 function isPieceKing() {
-    selectedPiece.isKing = document.getElementById(selectedPiece.pieceId).classList.contains("king");
+    selectedPiece.king = document.getElementById(selectedPiece.pieceId).classList.contains("king");
     getAvailableSpaces();
 }
 
@@ -108,16 +106,16 @@ function getAvailableSpaces() {
     const minusSeventhSpace = selectedPiece.indexOfBoardPiece - 7;
     const minusNinthSpace = selectedPiece.indexOfBoardPiece - 9;
     //check if the space is empty and does not have a "noPiece" class then mark as available
-    if (board[seventhSpace] === null && !cells[seventhSpace].classList.contains("noPiece")) {
+    if (checkerBoard[seventhSpace] === null && !cells[seventhSpace].classList.contains("noPiece")) {
         selectedPiece.seventhSpace = true;
     }
-    if (board[ninthSpace] === null && !cells[ninthSpace].classList.contains("noPiece")) {
+    if (checkerBoard[ninthSpace] === null && !cells[ninthSpace].classList.contains("noPiece")) {
         selectedPiece.ninthSpace = true;
     }
-    if (board[minusSeventhSpace] === null && !cells[minusSeventhSpace].classList.contains("noPiece")) {
+    if (checkerBoard[minusSeventhSpace] === null && !cells[minusSeventhSpace].classList.contains("noPiece")) {
         selectedPiece.minusSeventhSpace = true;
     }
-    if (board[minusNinthSpace] === null && !cells[minusNinthSpace].classList.contains("noPiece")) {
+    if (checkerBoard[minusNinthSpace] === null && !cells[minusNinthSpace].classList.contains("noPiece")) {
         selectedPiece.minusNinthSpace = true;
     }
     checkAvailableJumpSpaces();
@@ -130,24 +128,24 @@ function checkAvailableJumpSpaces() {
     if (isTurn) {
       //check for available jump spaces when it's the player's turn.
       const canJumpToFourteenthSpace = (
-        board[selectedBoardIndex + 14] === null &&
+        checkerBoard[selectedBoardIndex + 14] === null &&
         !cells[selectedBoardIndex + 14].classList.contains("noPiece") &&
-        board[selectedBoardIndex + 7] >= 12
+        checkerBoard[selectedBoardIndex + 7] >= 12
       );
       const canJumpToEighteenthSpace = (
-        board[selectedBoardIndex + 18] === null &&
+        checkerBoard[selectedBoardIndex + 18] === null &&
         !cells[selectedBoardIndex + 18].classList.contains("noPiece") &&
-        board[selectedBoardIndex + 9] >= 12
+        checkerBoard[selectedBoardIndex + 9] >= 12
       );
       const canJumpToMinusFourteenthSpace = (
-        board[selectedBoardIndex - 14] === null &&
+        checkerBoard[selectedBoardIndex - 14] === null &&
         !cells[selectedBoardIndex - 14].classList.contains("noPiece") &&
-        board[selectedBoardIndex - 7] >= 12
+        checkerBoard[selectedBoardIndex - 7] >= 12
       );
       const canJumpToMinusEighteenthSpace = (
-        board[selectedBoardIndex - 18] === null &&
+        checkerBoard[selectedBoardIndex - 18] === null &&
         !cells[selectedBoardIndex - 18].classList.contains("noPiece") &&
-        board[selectedBoardIndex - 9] >= 12
+        checkerBoard[selectedBoardIndex - 9] >= 12
       );
       //update the selected piece's jump spaces status based on the above checks
       selectedPiece.fourteenthSpace = canJumpToFourteenthSpace;
@@ -157,28 +155,28 @@ function checkAvailableJumpSpaces() {
     } else {
       //check for available jump spaces when it's the opponent's turn
       const canJumpToFourteenthSpace = (
-        board[selectedBoardIndex + 14] === null &&
+        checkerBoard[selectedBoardIndex + 14] === null &&
         !cells[selectedBoardIndex + 14].classList.contains("noPiece") &&
-        board[selectedBoardIndex + 7] < 12 &&
-        board[selectedBoardIndex + 7] !== null
+        checkerBoard[selectedBoardIndex + 7] < 12 &&
+        checkerBoard[selectedBoardIndex + 7] !== null
       );
       const canJumpToEighteenthSpace = (
-        board[selectedBoardIndex + 18] === null &&
+        checkerBoard[selectedBoardIndex + 18] === null &&
         !cells[selectedBoardIndex + 18].classList.contains("noPiece") &&
-        board[selectedBoardIndex + 9] < 12 &&
-        board[selectedBoardIndex + 9] !== null
+        checkerBoard[selectedBoardIndex + 9] < 12 &&
+        checkerBoard[selectedBoardIndex + 9] !== null
       );
       const canJumpToMinusFourteenthSpace = (
-        board[selectedBoardIndex - 14] === null &&
+        checkerBoard[selectedBoardIndex - 14] === null &&
         !cells[selectedBoardIndex - 14].classList.contains("noPieceHere") &&
-        board[selectedBoardIndex - 7] < 12 &&
-        board[selectedBoardIndex - 7] !== null
+        checkerBoard[selectedBoardIndex - 7] < 12 &&
+        checkerBoard[selectedBoardIndex - 7] !== null
       );
       const canJumpToMinusEighteenthSpace = (
-        board[selectedBoardIndex - 18] === null &&
+        checkerBoard[selectedBoardIndex - 18] === null &&
         !cells[selectedBoardIndex - 18].classList.contains("noPieceHere") &&
-        board[selectedBoardIndex - 9] < 12 &&
-        board[selectedBoardIndex - 9] !== null
+        checkerBoard[selectedBoardIndex - 9] < 12 &&
+        checkerBoard[selectedBoardIndex - 9] !== null
       );
       //update the selected piece's jump spaces status based on the above
       selectedPiece.fourteenthSpace = canJumpToFourteenthSpace;
@@ -191,7 +189,7 @@ function checkAvailableJumpSpaces() {
 
 //function checks the conditions of the selected piece and decides whether to apply borders to the spaces it can move to
 function checkPieceConditions() {
-    if (selectedPiece.isKing) {
+    if (selectedPiece.king) {
         givePieceBorder();
     } else {
         if (turn) {
@@ -259,38 +257,38 @@ function makeMove(number) {
     cells[selectedPiece.indexOfBoardPiece].innerHTML = "";
     const targetCell = cells[selectedPiece.indexOfBoardPiece + number];
     const pieceColor = turn ? "red" : "black";
-    const pieceClass = selectedPiece.isKing ? `${pieceColor}-piece king` : `${pieceColor}-piece`;
+    const pieceClass = selectedPiece.king ? `${pieceColor}-piece king` : `${pieceColor}-piece`;
     const pieceElement = turn ? document.createElement("p") : document.createElement("span");
     pieceElement.className = pieceClass;
     pieceElement.id = selectedPiece.pieceId;
     targetCell.appendChild(pieceElement);
     if (turn) {
-      redsPieces = document.querySelectorAll("p");
+      redPiece = document.querySelectorAll("p");
     } else {
-      blacksPieces = document.querySelectorAll("span");
+      blackPiece = document.querySelectorAll("span");
     }
 }
 
-///CITATION///
+/* * Title: (Checkers) * Author:(Branco, R) * Date: (2020) * Code version:(v1) * Availability:(https://github.com/RyanBranco/Checkers) * */
 function makeMove(number) {
     //remove the selected piece from its current position
     document.getElementById(selectedPiece.pieceId).remove();
     cells[selectedPiece.indexOfBoardPiece].innerHTML = "";
     if (turn) {
-        if (selectedPiece.isKing) {
+        if (selectedPiece.king) {
             cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<p class="red-piece king" id="${selectedPiece.pieceId}"></p>`;
-            redsPieces = document.querySelectorAll("p");
+            redPiece = document.querySelectorAll("p");
         } else {
             cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<p class="red-piece" id="${selectedPiece.pieceId}"></p>`;
-            redsPieces = document.querySelectorAll("p");
+            redPiece = document.querySelectorAll("p");
         }
     } else {
-        if (selectedPiece.isKing) {
+        if (selectedPiece.king) {
             cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<span class="black-piece king" id="${selectedPiece.pieceId}"></span>`;
-            blacksPieces = document.querySelectorAll("span");
+            blackPiece = document.querySelectorAll("span");
         } else {
             cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<span class="black-piece" id="${selectedPiece.pieceId}"></span>`;
-            blacksPieces = document.querySelectorAll("span");
+            blackPiece = document.querySelectorAll("span");
         }
     }
     //if the piece made a jump move, then the piece that was jumped over is removed from the board and its data is updated
@@ -305,8 +303,8 @@ function makeMove(number) {
 //update the game board and check for any captured pieces
 function changeData(indexOfBoardPiece, modifiedIndex, removePiece) {
     //clear the original board position and move the selected piece to the new position
-    board[indexOfBoardPiece] = null;
-    board[modifiedIndex] = parseInt(selectedPiece.pieceId);
+    checkerBoard[indexOfBoardPiece] = null;
+    checkerBoard[modifiedIndex] = parseInt(selectedPiece.pieceId);
     //check if a piece has reached the opposite end of the board and promote it to a king
     if (turn && selectedPiece.pieceId < 12 && modifiedIndex >= 57) {
         document.getElementById(selectedPiece.pieceId).classList.add("king");
@@ -316,14 +314,14 @@ function changeData(indexOfBoardPiece, modifiedIndex, removePiece) {
     }
     //remove any captured piece from the board and update the scores
     if (removePiece) {
-        board[removePiece] = null;
+      checkerBoard[removePiece] = null;
         if (turn && selectedPiece.pieceId < 12) {
             cells[removePiece].innerHTML = "";
-            blackScore--;
+            blackPlay--;
         }
         if (turn === false && selectedPiece.pieceId >= 12) {
             cells[removePiece].innerHTML = "";
-            redScore--;
+            redPlay--;
         }
     }
     resetSelectedPieceProperties();
@@ -335,12 +333,12 @@ function changeData(indexOfBoardPiece, modifiedIndex, removePiece) {
 //remove event listeners for the current player's pieces
 function removeEventListeners() {
     if (turn) {
-        for (let i = 0; i < redsPieces.length; i++) {
-            redsPieces[i].removeEventListener("click", getPlayerPieces);
+        for (let i = 0; i < redPiece.length; i++) {
+            redPiece[i].removeEventListener("click", getPlayerPieces);
         }
     } else {
-        for (let i = 0; i < blacksPieces.length; i++) {
-            blacksPieces[i].removeEventListener("click", getPlayerPieces);
+        for (let i = 0; i < blackPiece.length; i++) {
+            blackPiece[i].removeEventListener("click", getPlayerPieces);
         }
     }
     //check if the game has been won by either player
@@ -349,7 +347,7 @@ function removeEventListeners() {
 
 //check if the game has been won by either player and update the game
 function checkForWin() {
-    if (blackScore === 0) {
+    if (blackPlay === 0) {
         //black has no more pieces, so red wins the game
         divider.style.display = "none";
         for (let i = 0; i < redTurnText.length; i++) {
@@ -357,7 +355,7 @@ function checkForWin() {
             blackTurntext[i].style.display = "none";
             redTurnText[i].textContent = "RED WINS!";
         }
-    } else if (redScore === 0) {
+    } else if (redPlay === 0) {
         //red has no more pieces, so black wins the game
         divider.style.display = "none";
         for (let i = 0; i < blackTurntext.length; i++) {
